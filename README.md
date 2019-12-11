@@ -36,12 +36,12 @@ This project will explore how the binary neural network can reduce the computati
 
 假设q 的梯度为：<br>
 <p align="center">
-	<img src="https://img-blog.csdn.net/20180427221046833" alt="Sample"  width="30">
+	<img src="https://img-blog.csdn.net/20180427221046833" alt="Sample"  width="40">
 </p>
 
 其中，C 为损失函数，已知 q 的梯度，那么 r 的梯度，即 C 对 r 的求导公式如下：<br>
 <p align="center">
-	<img src="https://img-blog.csdn.net/20180427221418986" alt="Sample"  width="200">
+	<img src="https://img-blog.csdn.net/20180427221418986" alt="Sample"  width="150">
 </p>
 
 其中 ，1|r|<=1  的计算公式为 Htanh，这也是函数变得可求导的原因，具体如下：<br>
