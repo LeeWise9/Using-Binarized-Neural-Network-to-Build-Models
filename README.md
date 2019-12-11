@@ -16,7 +16,7 @@ This project will explore how the binary neural network can reduce the computati
 
 
 ## 1.二值化神经网络计算原理<br>
-二值化网络的计算重点在于梯度计算，前向传播及误差后向传播。
+二值化网络的计算重点在于梯度计算及梯度传递。
 
 ### 0.浮点数的二值化方法<br>
 对任意一个32位浮点数x，其二值化方法为取其符号：x不小于0时取1，小于0时取-1。
@@ -25,16 +25,16 @@ This project will explore how the binary neural network can reduce the computati
 </p>
 
 ### 1.梯度计算方法<br>
-虽然BNN训练方法使用二值化的权值和激活值来计算参数梯度。但梯度不得不用其高精度的实际值，因为随机梯度下降（SGD）计算的梯度值量级很小，而且在累加过程中具有噪声，这种噪声是服从正态分布的，因此这种算子需要保持足够高的精度。此外，在计算梯度的时候给权值和激活值添加噪声具有正则化作用，可以防止过拟合。
+虽然BNN 训练方法使用二值化的权值和激活值来计算参数梯度。但梯度不得不用其高精度的实际值，因为随机梯度下降（SGD）计算的梯度值量级很小，而且在累加过程中具有噪声，这种噪声是服从正态分布的，因此这种算子需要保持足够高的精度。此外，在计算梯度的时候给权值和激活值添加噪声具有正则化作用，可以防止过拟合。
 
-符号函数sign的导数为零，显然进无法行反向传播运算。因此，在反传过程中需要对符号函数进行松弛求解。
+符号函数sign 的导数为零，显然进无法行反向传播运算。因此，在反传过程中需要对符号函数进行松弛求解。
 
-假设q的梯度为：
+假设q 的梯度为：
 <p align="center">
-	<img src="https://img-blog.csdn.net/20180427221046833" alt="Sample"  width="100">
+	<img src="https://img-blog.csdn.net/20180427221046833" alt="Sample"  width="50">
 </p>
 
-其中，C为损失函数，已知q的梯度，那么r的梯度，即C对r的求导公式如下：
+其中，C 为损失函数，已知q 的梯度，那么r 的梯度，即C 对r 的求导公式如下：
 <p align="center">
 	<img src="https://img-blog.csdn.net/20180427221418986" alt="Sample"  width="300">
 </p>
@@ -44,7 +44,7 @@ This project will explore how the binary neural network can reduce the computati
 	<img src="https://img-blog.csdn.net/2018042722191180" alt="Sample"  width="400">
 </p>
 
-即当r的绝对值小于1时，r的梯度等于q的梯度，否则r的梯度为0。可以用下图表示
+即当r 的绝对值小于1时，r 的梯度等于q 的梯度，否则r 的梯度为0。可以用下图表示：
 <p align="center">
 	<img src="https://img-blog.csdn.net/20180427222533395" alt="Sample"  width="500">
 </p>
