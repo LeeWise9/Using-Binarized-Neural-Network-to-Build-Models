@@ -17,12 +17,15 @@ This project will explore how the binary neural network can reduce the computati
 
 ## 1.二值化神经网络计算原理<br>
 二值化网络的计算重点在于梯度计算，前向传播及误差后向传播。
+
 ### 0.浮点数的二值化方法<br>
-对任意一个32位浮点数x，其二值化方法为取其符号：
+对任意一个32位浮点数x，其二值化方法为取其符号：x不小于0时取1，小于0时取-1。
 <p align="center">
-	<img src="https://github.com/LeeWise9/Img_repositories/blob/master/%E4%BA%8C%E5%80%BC%E5%8C%96%E6%96%B9%E6%B3%951.png" alt="Sample"  width="50">
+	<img src="https://github.com/LeeWise9/Img_repositories/blob/master/%E4%BA%8C%E5%80%BC%E5%8C%96%E6%96%B9%E6%B3%951.png" alt="Sample"  width="200">
 </p>
 
+### 1.梯度计算方法<br>
+虽然BNN训练方法使用二值化的权值和激活值来计算参数梯度。但梯度不得不用其高精度的实际值，因为随机梯度下降（SGD）计算的梯度值量级很小，而且在累加过程中具有噪声，这种噪声是服从正态分布的，因此这种算子需要保持足够高的精度。此外，在计算梯度的时候给权值和激活值添加噪声具有正则化作用，可以防止过拟合。
 
 
 
