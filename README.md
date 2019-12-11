@@ -56,7 +56,7 @@ This project will explore how the binary neural network can reduce the computati
 
 梯度传递操作如图所示：<br>
 <p align="center">
-	<img src="https://github.com/LeeWise9/Img_repositories/blob/master/%E4%BA%8C%E5%80%BC%E5%8C%96%E6%96%B9%E6%B3%953.png" alt="Sample"  width="300">
+	<img src="https://github.com/LeeWise9/Img_repositories/blob/master/%E4%BA%8C%E5%80%BC%E5%8C%96%E6%96%B9%E6%B3%953.png" alt="Sample"  width="500">
 </p>
 
 
