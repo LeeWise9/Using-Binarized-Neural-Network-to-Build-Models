@@ -72,12 +72,12 @@ This project will explore how the binary neural network can reduce the computati
 </p>
 （注意：二值化的变量均包含上角标b）
 
-当计算层 k 不为最后一层时：
-	1. 对第 k 层的权值 Wk 做二值化操作；
-	2. 将二值化后的 Wk 与 第 k-1 层的二值化的激活值 a(k-1) 相乘得 sk；
-	3. 将 sk 做BatchNormalization 得 ak，注意 ak、sk 和 θk 都不是二值的；
-	4. 对 ak 做二值化。
-	k += 1
+当计算层 k 不为最后一层时：<br>
+	1. 对第 k 层的权值 Wk 做二值化操作；<br>
+	2. 将二值化后的 Wk 与 第 k-1 层的二值化的激活值 a(k-1) 相乘得 sk；<br>
+	3. 将 sk 做BatchNormalization 得 ak，注意 ak、sk 和 θk 都不是二值的；<br>
+	4. 对 ak 做二值化。<br>
+	k += 1<br>
 
 ### 后传<br>
 后传的计算步骤如下图所示：<br>
