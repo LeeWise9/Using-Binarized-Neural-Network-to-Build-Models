@@ -21,11 +21,34 @@ This project will explore how the binary neural network can reduce the computati
 ### 0.浮点数的二值化方法<br>
 对任意一个32位浮点数x，其二值化方法为取其符号：x不小于0时取1，小于0时取-1。
 <p align="center">
-	<img src="https://github.com/LeeWise9/Img_repositories/blob/master/%E4%BA%8C%E5%80%BC%E5%8C%96%E6%96%B9%E6%B3%951.png" alt="Sample"  width="200">
+	<img src="https://github.com/LeeWise9/Img_repositories/blob/master/%E4%BA%8C%E5%80%BC%E5%8C%96%E6%96%B9%E6%B3%951.png" alt="Sample"  width="300">
 </p>
 
 ### 1.梯度计算方法<br>
 虽然BNN训练方法使用二值化的权值和激活值来计算参数梯度。但梯度不得不用其高精度的实际值，因为随机梯度下降（SGD）计算的梯度值量级很小，而且在累加过程中具有噪声，这种噪声是服从正态分布的，因此这种算子需要保持足够高的精度。此外，在计算梯度的时候给权值和激活值添加噪声具有正则化作用，可以防止过拟合。
+
+符号函数sign的导数为零，显然进无法行反向传播运算。因此，在反传过程中需要对符号函数进行松弛求解。
+
+假设q的梯度为：
+<p align="center">
+	<img src="https://img-blog.csdn.net/20180427221046833" alt="Sample"  width="100">
+</p>
+
+其中，C为损失函数，已知q的梯度，那么r的梯度，即C对r的求导公式如下：
+<p align="center">
+	<img src="https://img-blog.csdn.net/20180427221418986" alt="Sample"  width="300">
+</p>
+
+其中 ，1|r|<=1  的计算公式为Htanh，这也是函数变得可求导的原因，具体如下：
+<p align="center">
+	<img src="https://img-blog.csdn.net/2018042722191180" alt="Sample"  width="400">
+</p>
+
+即当r的绝对值小于1时，r的梯度等于q的梯度，否则r的梯度为0。可以用下图表示
+<p align="center">
+	<img src="https://img-blog.csdn.net/20180427222533395" alt="Sample"  width="500">
+</p>
+
 
 
 
