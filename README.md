@@ -31,7 +31,7 @@ This project will explore how the binary neural network can reduce the computati
 ### 浮点数的二值化方法<br>
 对任意一个 32 位浮点数 x，其二值化方法为取其符号：x 不小于 0 时取 1，小于 0 时取 -1。
 <p align="center">
-	<img src="https://github.com/LeeWise9/Img_repositories/blob/master/%E4%BA%8C%E5%80%BC%E5%8C%96%E6%96%B9%E6%B3%951.png" alt="Sample"  width="300">
+	<img src="https://github.com/LeeWise9/Img_repositories/blob/master/%E4%BA%8C%E5%80%BC%E5%8C%96%E6%96%B9%E6%B3%951.png" alt="Sample"  width="500">
 </p>
 
 二值化操作如图所示：<br>
