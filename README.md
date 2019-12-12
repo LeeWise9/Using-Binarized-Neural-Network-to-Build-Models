@@ -1,7 +1,7 @@
-# Using-Binarized-Neural-Network-to-Slim-Models
-This project will explore how the binary neural network can reduce the computation and the size of the model. Take MNIST and traffic signs recognition for example. The code is based on keras and runs on GPU.
+# Using-Binarized-Neural-Network-to-Build-Models
+This project will explore how to build a binarized neural network. Take MNIST and traffic signs recognition for example. The code is based on keras and runs on GPU.
 
-本项目将探讨如何使用二值化神经网络（BNN）优化模型，减少计算量并减少模型存储空间。本项目以mnist数据集和GTSRB（德国交通指示牌）为例。代码基于keras编写，支持GPU加速。
+本项目将探讨如何使用二值化神经网络（BNN）搭建模型。本项目以mnist数据集和GTSRB（德国交通指示牌）为例。代码基于keras编写，支持GPU加速。
 
 本项目主要包含以下几个部分：<br>
 * 0.二值化神经网络简介；<br>
