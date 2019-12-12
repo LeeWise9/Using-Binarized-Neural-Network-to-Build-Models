@@ -145,11 +145,47 @@ def binarize(W, H=1):
 
 该函数将 [-H, H] 之间的值转换为 -H 或者 H，实现二值化操作。
 
-### 二值化的激活函数（binary_tanh）<br>
+### 二值化激活函数（binary_tanh）<br>
 ```python
+def round_through(x):
+    '''
+    输入 x∈[ 0, 1 ]
+    rounded 取值为 0 或 1
+    不计算(rounded - x)的梯度
+    '''
+    rounded = K.round(x)
+    return x + K.stop_gradient(rounded - x)
 
+def _hard_sigmoid(x):
+    '''
+    二值化的 sigmoid 函数
+    用折线替代曲线
+    值域为[ 0, 1 ]
+    '''
+    x = (0.5 * x) + 0.5
+    return K.clip(x, 0, 1)
 
+def binary_tanh(x):
+    '''
+    二值化的 tanh 函数
+    值域为[ -1, 1 ]
+    ''' 
+    return 2 * round_through(_hard_sigmoid(x)) - 1
 ```
+
+有一个很重要的计算技巧这里重点解释一下：<br>
+在前向传播(forward propagation)时, 二值化期望的输出如下：<br>
+x <= 0.0, y = -1；<br>
+x >  0.0, y = 1。<br>
+在后向传播(backward propagation)求梯度时, 期望的规则如下：<br>
+当 x <= -1,    y = -1；<br>
+当 -1 < x < 1, y = x；<br>
+当 x > 1;      y = 1。<br>
+显然，前向传播的法则和后向传播的期望是不相同的。Keras 和 TensorFlow 会按照前向传播法则如实计算梯度值，但是我们期望后向传播时按照新的法则计算。<br>
+
+鉴于以上矛盾，有了 round_through 函数，它的作用是选择性的计算梯度，即
+
+前向传播时，返回的值是 round 值，即对 x 取整，得到 0 或 1，反向传播计算梯度时，不计算(rounded - x)部分的梯度，仅计算 x 的梯度
 
 ### 二值化 Dropout 函数（DropoutNoScale）<br>
 ```python
