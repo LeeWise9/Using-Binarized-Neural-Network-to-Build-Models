@@ -173,19 +173,22 @@ def binary_tanh(x):
     return 2 * round_through(_hard_sigmoid(x)) - 1
 ```
 
-有一个很重要的计算技巧这里重点解释一下：<br>
+有一个很重要的计算技巧这里重点解释一下：
+
 在前向传播(forward propagation)时, 二值化期望的输出如下：<br>
-x <= 0.0, y = -1；<br>
-x >  0.0, y = 1。<br>
+x <= 0.0， y = -1；<br>
+x >  0.0， y = 1。
+
 在后向传播(backward propagation)求梯度时, 期望的规则如下：<br>
-当 x <= -1,    y = -1；<br>
-当 -1 < x < 1, y = x；<br>
-当 x > 1;      y = 1。<br>
-显然，前向传播的法则和后向传播的期望是不相同的。Keras 和 TensorFlow 会按照前向传播法则如实计算梯度值，但是我们期望后向传播时按照新的法则计算。<br>
+当 x <= -1，    y = -1；<br>
+当 -1 < x < 1， y = x；<br>
+当 x > 1，      y = 1。
+
+显然，前向传播的法则和后向传播的期望是不相同的。Keras 和 TensorFlow 会按照前向传播法则如实反向计算梯度值，但是我们期望反向传播时按照新的法则计算。<br>
 
 鉴于以上矛盾，有了 round_through 函数，它的功能是：<br>
 前向传播时，返回值 rounded ，即对 x 取整，得到 0 或 1；<br>
-反向传播计算梯度时，不计算(rounded - x)部分的梯度，而是计算 x 的梯度，避免梯度为0。<br>
+反向传播计算梯度时，不计算 (rounded - x) 部分的梯度，而是计算 x 的梯度，避免梯度为0。<br>
 
 ### 二值化 Dropout 函数（DropoutNoScale）<br>
 ```python
@@ -201,17 +204,21 @@ class DropoutNoScale(Dropout):
 
 普通神经网络中的 Dropout 的运行机制是，随机使 rate 比率的神经元失活，并对剩下的权值除以（1-rate）。二值化神经网络不需要这个步骤，所以要乘以（1-rate）作为补偿。
 
-### 二值化的激活函数（binary_tanh）<br>
-```python
-
-```
-
-
-
-
-
 
 ## 4. 二值化神经网络识别手写数字<br>
+该项目给出了二值化的全连接神经网络和卷积神经网络识别手写数字的demo，整体而言，卷积神经网络模型效果更好。
+
+卷积神经网络包含四个卷积层（32x3x3, 64x3x3, 64x3x3, 128x3x3）和两个全连接层（其中一个为输出层），参数量为148,680。<br>
+这是卷积神经网络的误差下降曲线：<br>
+<p align="center">
+	<img src="https://github.com/LeeWise9/Img_repositories/blob/master/BNN_CNN_model.jpg" alt="Sample"  width="500">
+</p>
+
+全连接神经网络包含3个隐藏层，每个隐藏层包含 512 个神经元，参数量为937,000。<br>
+这是全连接神经网络的误差下降曲线：<br>
+<p align="center">
+	<img src="https://github.com/LeeWise9/Img_repositories/blob/master/BNN_MLP_model.jpg" alt="Sample"  width="500">
+</p>
 
 
 ## 5. 二值化神经网络识别交通指示牌<br>
