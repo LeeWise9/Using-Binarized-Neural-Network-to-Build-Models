@@ -3,12 +3,13 @@ This project will explore how the binary neural network can reduce the computati
 
 本项目将探讨如何使用二值化神经网络（BNN）优化模型，减少计算量并减少模型存储空间。本项目以mnist数据集和GTSRB（德国交通指示牌）为例。代码基于keras编写，支持GPU加速。
 
-本项目主要包含四个部分：<br>
+本项目主要包含以下几个部分：<br>
 * 0.二值化神经网络简介；<br>
 * 1.二值化神经网络计算原理；<br>
 * 2.二值化神经网络训练方法；<br>
-* 3.二值化神经网络识别手写数字；<br>
-* 4.二值化神经网络识别交通指示牌。<br>
+* 3.二值化神经网络的Keras实现；<br>
+* 4.二值化神经网络识别手写数字；<br>
+* 5.二值化神经网络识别交通指示牌。<br>
 
 
 ## 0. 二值化神经网络简介<br>
@@ -130,10 +131,25 @@ sk ：a(k-1) 和 Wk 的积（一个中间变量）。<br>
 3. 更新学习率；<br>
 
 
-## 3. 二值化神经网络识别手写数字<br>
-将二值化神经网络用于手写数字识别，包括全连接神经网络和卷积神经网络。
+## 3. 二值化神经网络的Keras实现<br>
+将二值化神经网络用keras实现，主要包括全连接神经网络和卷积神经网络。
 
-实现神经网络二值化，构建了 BinaryDense、BinaryConv2D，还要注意几个技术细节，需要构建二值化的激活函数（binary_tanh）、二值化的 Dropout 函数（DropoutNoScale）等。
+实现神经网络二值化，需要构建了 BinaryDense、BinaryConv2D，还要注意几个技术细节。这里解释一下二值化函数（binarize）、二值化的激活函数（binary_tanh）、二值化的 Dropout 函数（DropoutNoScale）等。
+
+### 二值化函数<br>
+```python
+def binarize(W, H=1):
+    Wb = H * binary_tanh(W / H)
+    return Wb
+```
+
+该函数将 [-H, H] 之间的值转换为 -H 或者 H，实现二值化操作。
+
+### 二值化的激活函数（binary_tanh）<br>
+```python
+
+
+```
 
 ### 二值化 Dropout 函数（DropoutNoScale）<br>
 ```python
@@ -149,8 +165,20 @@ class DropoutNoScale(Dropout):
 
 普通神经网络中的 Dropout 的运行机制是，随机使 rate 比率的神经元失活，并对剩下的权值除以（1-rate）。二值化神经网络不需要这个步骤，所以要乘以（1-rate）作为补偿。
 
+### 二值化的激活函数（binary_tanh）<br>
+```python
 
-## 4. 二值化神经网络识别交通指示牌<br>
+```
+
+
+
+
+
+
+## 4. 二值化神经网络识别手写数字<br>
+
+
+## 5. 二值化神经网络识别交通指示牌<br>
 
 
 
