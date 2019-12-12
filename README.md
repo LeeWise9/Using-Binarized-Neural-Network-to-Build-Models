@@ -222,6 +222,19 @@ class DropoutNoScale(Dropout):
 
 
 ## 5. 二值化神经网络识别交通指示牌<br>
+交通指示牌是我另外一个项目中的内容，读者可以通过[传送门](https://github.com/LeeWise9/Autopilot_Traffic_Sign_Recognition)访问该项目并获取数据。使用二值化神经网络识别交通指示牌，本项目同样给出了全连接神经网络和卷积神经网络。
+
+卷积神经网络包含四个卷积层（128x3x3, 128x3x3, 256x3x3, 256x3x3）和两个全连接层（其中一个为输出层），参数量为17,861,932。<br>
+这是卷积神经网络的误差下降曲线：<br>
+<p align="center">
+	<img src="https://github.com/LeeWise9/Img_repositories/blob/master/BNN_CNN_model.jpg" alt="Sample"  width="500">
+</p>
+
+全连接神经网络包含3个隐藏层，每个隐藏层包含 2048 个神经元，参数量为10,598,572。<br>
+这是全连接神经网络的误差下降曲线：<br>
+<p align="center">
+	<img src="https://github.com/LeeWise9/Img_repositories/blob/master/BNN_MLP_model.jpg" alt="Sample"  width="500">
+</p>
 
 
 
