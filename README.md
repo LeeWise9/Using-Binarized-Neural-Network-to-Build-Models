@@ -67,10 +67,10 @@ This project will explore how the binary neural network can reduce the computati
 
 先解释以下各个变量符号：<br>
 Wk ：第 k 层的权值；<br>
-ak ：第 k 层的激活函数值；
-θk ：第 k 层的 BN 参数；
-sk ：a(k-1) 和 Wk 的积（一个中间变量）。
-以上变量如果前方添加 "g" 则表示计算梯度，如果包含上角标 "b" 则表示计算二值化值。
+ak ：第 k 层的激活函数值；<br>
+θk ：第 k 层的 BN 参数；<br>
+sk ：a(k-1) 和 Wk 的积（一个中间变量）。<br>
+以上变量如果前方添加 "g" 则表示计算梯度，如果包含上角标 "b" 则表示计算二值化值。<br>
 
 ### 前传<br>
 前传的计算步骤如下图所示：<br>
@@ -96,13 +96,18 @@ sk ：a(k-1) 和 Wk 的积（一个中间变量）。
 3. 将 gsk 和 Wbk 相乘得 gba(k-1)；<br>
 4. 将 gsk 的转置与第 ab(k-1) 相乘得 gWbk。<br>
 
+计算出权值 W 的梯度之后，就可以更新了，更新权值是网络训练的最终目标。
+
 ### 更新权值<br>
-更新权值对计算步骤如图所示：<br>
+更新权值对计算步骤如图所示：（t 表示更新轮数）<br>
 <p align="center">
 	<img src="https://img-blog.csdn.net/20180428144806929" alt="Sample"  width="500">
 </p>
 
-
+当计算层 k 由 1 增大为 L 时：<br>
+1. 由 θk、η（学习率） 和 gθk 更新 θk；<br>
+2. 由 Wk、学习率和 gWbk 更新 Wk，并限定变化范围；<br>
+3. 更新学习率；<br>
 
 
 ## 3. 二值化神经网络识别手写数字<br>
