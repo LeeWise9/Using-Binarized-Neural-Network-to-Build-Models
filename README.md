@@ -137,7 +137,17 @@ sk ：a(k-1) 和 Wk 的积（一个中间变量）。<br>
 
 ···
 
-代码
+class DropoutNoScale(Dropout):
+    def call(self, inputs, training=None):
+        if 0. < self.rate < 1.:
+            noise_shape = self._get_noise_shape(inputs)
+
+            def dropped_inputs():
+                return K.dropout(inputs, self.rate, noise_shape,
+                                 seed=self.seed) * (1 - self.rate)
+            return K.in_train_phase(dropped_inputs, inputs,
+                                    training=training)
+        return inputs
 
 ···
 
