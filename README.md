@@ -16,7 +16,7 @@ This project will explore how the binary neural network can reduce the computati
 
 一句话概括 BNN 与普通神经网络的区别：训练更困难，部署更简单，计算更高效。
 
-二值网络是将权值 W 和隐藏层激活值二值化为 1 或者 -1。二值化的 2D 卷积核可由下图表示：<br>
+二值网络是将权值 W 和隐藏层激活值二值化为 1 或者 -1。比如二值化的 2D 卷积核可由下图表示：（16 个 3x3 的卷积核）<br>
 <p align="center">
 	<img src="https://github.com/LeeWise9/Img_repositories/blob/master/bnn%E6%9D%83%E5%80%BC.png" alt="Sample"  width="300">
 </p>
