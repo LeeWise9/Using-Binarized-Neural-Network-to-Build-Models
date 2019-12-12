@@ -1,7 +1,7 @@
 # Using-Binarized-Neural-Network-to-Slim-Models
 This project will explore how the binary neural network can reduce the computation and the size of the model. Take MNIST and traffic signs recognition for example. The code is based on keras and runs on GPU.
 
-本项目将探讨如何使用二值化神经网络优化模型，减少计算量并减少模型存储空间。本项目以mnist数据集和GTSRB（德国交通指示牌）为例。代码基于keras编写，支持GPU加速。
+本项目将探讨如何使用二值化神经网络（BNN）优化模型，减少计算量并减少模型存储空间。本项目以mnist数据集和GTSRB（德国交通指示牌）为例。代码基于keras编写，支持GPU加速。
 
 本项目主要包含四个部分：<br>
 * 0.二值化神经网络简介；<br>
@@ -12,10 +12,18 @@ This project will explore how the binary neural network can reduce the computati
 
 
 ## 0. 二值化神经网络简介<br>
-为了将神经网络部署到诸如单片机这种算力有限的设备上，[二值化神经网络](https://arxiv.org/abs/1602.02830)被提出。二值网络是将权值W和隐藏层激活值二值化为1或者-1。通过二值化操作，模型的参数占用更小的存储空间（内存消耗理论上减少为原来的1/32倍，从float32到1bit）；同时利用位操作来代替网络中的乘加运算，大大降低了运算时间。由于二值网络只是将网络的参数和激活值二值化，并没有改变网络的结构。因此关注重点是如何二值化，以及二值化后参数如何更新。同时关注一下如何利用二进制位操作实现GPU加速计算的。
+为了将神经网络部署到诸如单片机这种算力有限的设备上，[二值化神经网络](https://arxiv.org/abs/1602.02830)被提出。
 
-需要注意的是，二值化网络得到的权重值为二值（这样模型predict时的计算量将很小），但是训练过程中参与误差计算的梯度值是非二值化的。
+二值网络是将权值 W 和隐藏层激活值二值化为 1 或者 -1。通过二值化操作，模型的参数占用更小的存储空间（内存消耗理论上减少为原来的1/32倍，从float32到1bit）；同时可利用位操作来代替网络中的乘加运算，大大降低了运算时间。
 
+由于二值网络只是将网络的参数和激活值二值化，并没有改变网络的结构。因此关注重点是如何二值化，以及二值化后参数如何更新。同时关注一下如何利用二进制位操作实现GPU加速计算的。
+
+需要注意的是，二值化网络得到的模型权重值为二值的（这样模型predict时的计算量将很小），但是训练过程中参与误差计算的梯度值是非二值化的，这也意味着训练二值化的网络普通网络更加困难。
+
+下图是在 CIFAR-10 数据集上训练普通神经网络和二值化神经网络的误差下降曲线：（虚线为训练误差，实线为测试误差）<br>
+<p align="center">
+	<img src="https://github.com/LeeWise9/Img_repositories/blob/master/bnntrain.png" alt="Sample"  width="300">
+</p>
 
 ## 1. 二值化神经网络计算原理<br>
 二值化网络的计算重点在于梯度计算及梯度传递。
