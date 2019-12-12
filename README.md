@@ -136,7 +136,9 @@ sk ：a(k-1) 和 Wk 的积（一个中间变量）。<br>
 实现神经网络二值化，构建了 BinaryDense、BinaryConv2D，还要注意几个技术细节，需要构建二值化的激活函数（binary_tanh）、二值化的 Dropout 函数（DropoutNoScale）等。
 
 ···
+
 代码
+
 ···
 
 
