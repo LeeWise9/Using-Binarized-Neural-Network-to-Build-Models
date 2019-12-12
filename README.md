@@ -16,12 +16,16 @@ This project will explore how the binary neural network can reduce the computati
 
 一句话概括 BNN 与普通神经网络的区别：训练更困难，部署更简单，计算更高效。
 
-二值网络是将权值 W 和隐藏层激活值二值化为 1 或者 -1。比如二值化的 2D 卷积核可由下图表示：（16 个 3x3 的卷积核）<br>
+二值网络是将权值 W 和隐藏层激活值二值化为 1 或者 -1。
+
+比如二值化的 2D 卷积核可由下图表示（16 个 3x3 的卷积核）：<br>
 <p align="center">
-	<img src="https://github.com/LeeWise9/Img_repositories/blob/master/bnn%E6%9D%83%E5%80%BC.png" alt="Sample"  width="300">
+	<img src="https://github.com/LeeWise9/Img_repositories/blob/master/bnn%E6%9D%83%E5%80%BC.png" alt="Sample"  width="250">
 </p>
 
-通过二值化操作，模型的参数占用更小的存储空间（内存消耗理论上减少为原来的1/32倍，从float32到1bit）；同时可利用位操作来代替网络中的乘加运算，大大降低了预测过程的运算时间。需要注意的是，二值化网络得到的模型权重值为二值的，但是训练过程中参与误差计算的梯度值是非二值化的，因为使用浮点数计算才能保证计算和训练的精度。
+通过二值化操作，模型的参数占用更小的存储空间（内存消耗理论上减少为原来的1/32倍，从float32到1bit）；同时可利用位操作来代替网络中的乘加运算，大大降低了预测过程的运算时间。
+
+需要注意的是，二值化网络得到的模型权重值为二值的，但是训练过程中参与误差计算的梯度值是非二值化的，因为使用浮点数计算才能保证计算和训练的精度。
 
 权重值的改变意味着信息的损失，这也意味着训练二值化的网络普通网络更加困难。但是考虑到训练完成后，模型更小计算速度更快，部署成本更低，多花点时间做训练还是值得的。
 
@@ -31,6 +35,7 @@ This project will explore how the binary neural network can reduce the computati
 </p>
 
 由于二值网络只是将网络的参数和激活值二值化，并没有改变网络的结构。因此关注重点是如何二值化，以及二值化后参数如何更新。
+
 
 ## 1. 二值化神经网络计算原理<br>
 二值化网络的计算重点在于梯度计算及梯度传递。
@@ -126,7 +131,24 @@ sk ：a(k-1) 和 Wk 的积（一个中间变量）。<br>
 
 
 ## 3. 二值化神经网络识别手写数字<br>
+将二值化神经网络用于手写数字识别，包括全连接神经网络和卷积神经网络。
 
+实现神经网络二值化，构建了 BinaryDense、BinaryConv2D，还要注意几个技术细节，需要构建二值化的激活函数（binary_tanh）、二值化的 Dropout 函数（DropoutNoScale）等。
+
+···python
+class DropoutNoScale(Dropout):
+    '''Keras 的 Dropout 层会将输入按照 dropout率 进行缩放, 再二值化里面不能进行缩放'''
+    def call(self, inputs, training=None):
+        if 0. < self.rate < 1.:
+            noise_shape = self._get_noise_shape(inputs)
+
+            def dropped_inputs():
+                return K.dropout(inputs, self.rate, noise_shape,
+                                 seed=self.seed) * (1 - self.rate)
+            return K.in_train_phase(dropped_inputs, inputs,
+                                    training=training)
+        return inputs
+···
 
 
 ## 4. 二值化神经网络识别交通指示牌<br>
