@@ -160,7 +160,7 @@ def _hard_sigmoid(x):
     '''
     二值化的 sigmoid 函数
     用折线替代曲线
-    值域为[ 0, 1 ]
+    输出值域为[ 0, 1 ]
     '''
     x = (0.5 * x) + 0.5
     return K.clip(x, 0, 1)
@@ -168,7 +168,7 @@ def _hard_sigmoid(x):
 def binary_tanh(x):
     '''
     二值化的 tanh 函数
-    值域为[ -1, 1 ]
+    输出值域为[ -1, 1 ]
     ''' 
     return 2 * round_through(_hard_sigmoid(x)) - 1
 ```
@@ -183,9 +183,9 @@ x >  0.0, y = 1。<br>
 当 x > 1;      y = 1。<br>
 显然，前向传播的法则和后向传播的期望是不相同的。Keras 和 TensorFlow 会按照前向传播法则如实计算梯度值，但是我们期望后向传播时按照新的法则计算。<br>
 
-鉴于以上矛盾，有了 round_through 函数，它的作用是选择性的计算梯度，即
-
-前向传播时，返回的值是 round 值，即对 x 取整，得到 0 或 1，反向传播计算梯度时，不计算(rounded - x)部分的梯度，仅计算 x 的梯度
+鉴于以上矛盾，有了 round_through 函数，它的功能是：<br>
+前向传播时，返回值 rounded ，即对 x 取整，得到 0 或 1；<br>
+反向传播计算梯度时，不计算(rounded - x)部分的梯度，而是计算 x 的梯度，避免梯度为0。<br>
 
 ### 二值化 Dropout 函数（DropoutNoScale）<br>
 ```python
