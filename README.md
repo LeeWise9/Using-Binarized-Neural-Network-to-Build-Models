@@ -136,19 +136,16 @@ sk ：a(k-1) 和 Wk 的积（一个中间变量）。<br>
 实现神经网络二值化，构建了 BinaryDense、BinaryConv2D，还要注意几个技术细节，需要构建二值化的激活函数（binary_tanh）、二值化的 Dropout 函数（DropoutNoScale）等。
 
 ···
-
 class DropoutNoScale(Dropout):
     def call(self, inputs, training=None):
         if 0. < self.rate < 1.:
             noise_shape = self._get_noise_shape(inputs)
-
             def dropped_inputs():
                 return K.dropout(inputs, self.rate, noise_shape,
                                  seed=self.seed) * (1 - self.rate)
             return K.in_train_phase(dropped_inputs, inputs,
                                     training=training)
         return inputs
-
 ···
 
 
