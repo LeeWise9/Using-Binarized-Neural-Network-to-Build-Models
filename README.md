@@ -52,7 +52,7 @@ This project will explore how to build a binarized neural network. Take MNIST an
 	<img src="https://github.com/LeeWise9/Img_repositories/blob/master/%E4%BA%8C%E5%80%BC%E5%8C%96%E6%96%B9%E6%B3%952.png" alt="Sample"  width="500">
 </p>
 
-### 梯度传递计算方法<br>
+### 二值化函数的梯度计算方法<br>
 虽然BNN 训练方法使用二值化的权值和激活值来计算参数梯度。但梯度不得不用其高精度的实际值，因为随机梯度下降（SGD）计算的梯度值量级很小，而且在累加过程中具有噪声，这种噪声是服从正态分布的，因此这种算子需要保持足够高的精度。此外，在计算梯度的时候给权值和激活值添加噪声具有正则化作用，可以防止过拟合。
 
 符号函数sign 的导数为零，显然进无法行反向传播运算。因此，在反传过程中需要对符号函数进行松弛求解。
@@ -62,12 +62,9 @@ This project will explore how to build a binarized neural network. Take MNIST an
 	<img src="https://img-blog.csdn.net/20180427221418986" alt="Sample"  width="150">
 </p>
 
-其中 ，1|r|<=1  的计算公式为 Htanh，这也是函数变得可求导的原因，具体如下：<br>
-<p align="center">
-	<img src="https://img-blog.csdn.net/2018042722191180" alt="Sample"  width="400">
-</p>
+其中 ，1|r|<=1 是一个分段函数，当 r 的绝对值小于等于 1 时取值为 1，当 r 的绝对值大于 1 时取值为 0。
 
-即当r 的绝对值小于1时，r 的梯度等于 q 的梯度，否则 r 的梯度为 0 。可以用下图表示：<br>
+即当 r 的绝对值小于 1 时，r 的梯度等于 q 的梯度，否则 r 的梯度为 0 。可以用下图表示：<br>
 <p align="center">
 	<img src="https://img-blog.csdn.net/20180427222533395" alt="Sample"  width="500">
 </p>
