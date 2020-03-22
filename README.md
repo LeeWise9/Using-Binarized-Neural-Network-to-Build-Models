@@ -57,12 +57,7 @@ This project will explore how to build a binarized neural network. Take MNIST an
 
 符号函数sign 的导数为零，显然进无法行反向传播运算。因此，在反传过程中需要对符号函数进行松弛求解。
 
-假设q 的梯度为：<br>
-<p align="center">
-	<img src="https://img-blog.csdn.net/20180427221046833" alt="Sample"  width="40">
-</p>
-
-其中，C 为损失函数，已知 q 的梯度，那么 r 的梯度，即 C 对 r 的求导公式如下：<br>
+假设 q=Sign(r)，则有：<br>
 <p align="center">
 	<img src="https://img-blog.csdn.net/20180427221418986" alt="Sample"  width="150">
 </p>
