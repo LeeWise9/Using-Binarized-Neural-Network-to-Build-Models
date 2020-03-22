@@ -62,12 +62,7 @@ This project will explore how to build a binarized neural network. Take MNIST an
 	<img src="https://img-blog.csdn.net/20180427221418986" alt="Sample"  width="150">
 </p>
 
-其中 ，1|r|<=1 是一个分段函数，当 r 的绝对值小于等于 1 时取值为 1，当 r 的绝对值大于 1 时取值为 0。
-
-即当 r 的绝对值小于 1 时，r 的梯度等于 q 的梯度，否则 r 的梯度为 0 。可以用下图表示：<br>
-<p align="center">
-	<img src="https://img-blog.csdn.net/20180427222533395" alt="Sample"  width="500">
-</p>
+其中 ，1|r|<=1 是一个分段函数，当 r 的绝对值小于等于 1 时取值为 1，当 r 的绝对值大于 1 时取值为 0。<br>
 
 梯度传递操作如图所示：<br>
 <p align="center">
